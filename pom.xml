@@ -201,7 +201,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.cjie.storm.trident.trend.RogueApplication</mainClass>
+                            <mainClass>storm.blueprints.chapter4.RogueApplication</mainClass>
                         </manifest>
                     </archive>
                     <excludes>
