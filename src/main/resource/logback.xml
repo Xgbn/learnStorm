@@ -1,7 +1,7 @@
 <configuration>
     <appender name="KAFKA" class="storm.blueprints.chapter4.logappender.KafkaAppender">
         <topic>log-analysis</topic>
-        <zookeeperHost>testserver:2181</zookeeperHost>
+        <zookeeperHost>localhost:2181</zookeeperHost>
         <formatter class="storm.blueprints.chapter4.logappender.JsonFormatter">
             <!--
             Whether we expect the log message to be JSON  encoded or not.

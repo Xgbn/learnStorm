@@ -72,7 +72,7 @@ public class KafkaAppender extends
     }
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put("zk.connect", "testserver:2181");
+        props.put("zk.connect", "localhost:2181");
         props.put("serializer.class", "kafka.serializer.StringEncoder");
         ProducerConfig config = new ProducerConfig(props);
         Producer producer = new Producer<String, String>(config);

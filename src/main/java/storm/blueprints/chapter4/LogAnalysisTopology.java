@@ -32,7 +32,7 @@ public class LogAnalysisTopology {
     public static StormTopology buildTopology() {
         TridentTopology topology = new TridentTopology();
         KafkaConfig.StaticHosts kafkaHosts = KafkaConfig.StaticHosts.fromHostString(
-                        Arrays.asList(new String[]{"testserver"}), 1);
+                        Arrays.asList(new String[]{"localhost"}), 1);
         TridentKafkaConfig spoutConf = new TridentKafkaConfig(kafkaHosts, "log-analysis");
         //spoutConf.scheme = new StringScheme();
         spoutConf.scheme = new SchemeAsMultiScheme(new StringScheme());
