@@ -4,12 +4,11 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.AppenderBase;
 import storm.blueprints.chapter4.message.MessageFormatter;
 import kafka.javaapi.producer.Producer;
-// import kafka.javaapi.producer.ProducerData;
+import kafka.javaapi.producer.ProducerData;
 import kafka.producer.ProducerConfig;
-import kafka.producer.KeyedMessage;
 
 import java.util.Properties;
-import java.util.AbstractMap.SimpleEntry;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -68,17 +67,17 @@ public class KafkaAppender extends
     @Override
     protected void append(ILoggingEvent event) {
        String payload = this.formatter.format(event);
-       KeyedMessage<String, String> data = new KeyedMessage<String, String>(this.topic, payload);
+       ProducerData<String, String> data = new ProducerData<String, String>(this.topic, payload);
        this.producer.send(data);
     }
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put("zk.connect", "localhost:2181");
+        props.put("zk.connect", "testserver:2181");
         props.put("serializer.class", "kafka.serializer.StringEncoder");
         ProducerConfig config = new ProducerConfig(props);
         Producer producer = new Producer<String, String>(config);
         String payload = String.format("abc%s","test");
-        KeyedMessage<String, String> data = new KeyedMessage<String, String>("mytopic", payload);
+        ProducerData<String, String> data = new ProducerData<String, String>("mytopic", payload);
         producer.send(data);
     }
 }

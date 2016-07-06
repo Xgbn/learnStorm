@@ -13,12 +13,9 @@ import storm.blueprints.chapter4.function.ThresholdFilterFunction;
 import storm.blueprints.chapter4.function.XMPPFunction;
 import storm.blueprints.chapter4.message.NotifyMessageMapper;
 import storm.kafka.KafkaConfig;
-import storm.kafka.StaticHosts;
-import storm.kafka.Broker;
 import storm.kafka.StringScheme;
 import storm.kafka.trident.OpaqueTridentKafkaSpout;
 import storm.kafka.trident.TridentKafkaConfig;
-import storm.kafka.trident.GlobalPartitionInformation;
 import storm.trident.Stream;
 import storm.trident.TridentTopology;
 
@@ -34,15 +31,12 @@ import java.util.Arrays;
 public class LogAnalysisTopology {
     public static StormTopology buildTopology() {
         TridentTopology topology = new TridentTopology();
-        Broker brokerForPartition0 = new Broker("localhost");
-        GlobalPartitionInformation partitionInfo = new GlobalPartitionInformation();
-        partitionInfo.addPartition(0, brokerForPartition0);
-        StaticHosts kafkaHosts = new StaticHosts(partitionInfo);
-
+        KafkaConfig.StaticHosts kafkaHosts = KafkaConfig.StaticHosts.fromHostString(
+                        Arrays.asList(new String[]{"testserver"}), 1);
         TridentKafkaConfig spoutConf = new TridentKafkaConfig(kafkaHosts, "log-analysis");
         //spoutConf.scheme = new StringScheme();
         spoutConf.scheme = new SchemeAsMultiScheme(new StringScheme());
-        spoutConf.startOffsetTime = -1;
+        spoutConf.forceStartOffsetTime(-1);
         OpaqueTridentKafkaSpout spout = new OpaqueTridentKafkaSpout(spoutConf);
         Stream spoutStream = topology.newStream("kafka-stream", spout);
         Fields jsonFields = new Fields("level","timestamp", "message", "logger");
