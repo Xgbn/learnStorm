@@ -1,0 +1,22 @@
+<configuration>
+    <appender name="KAFKA" class="storm.blueprints.chapter4.logappender.KafkaAppender">
+        <topic>log-analysis</topic>
+        <zookeeperHost>testserver:2181</zookeeperHost>
+        <formatter class="storm.blueprints.chapter4.logappender.JsonFormatter">
+            <!--
+            Whether we expect the log message to be JSON  encoded or not.
+            If set to "false", the log message will be
+            treated as a string, and wrapped in quotes. Otherwise
+            it will be treated as a parseable JSON object.
+            -->
+            <expectJson>false</expectJson>
+        </formatter>
+    </appender>
+    <root level="debug">
+        <appender-ref ref="KAFKA" />
+    </root>
+    <logger name="storm.blueprints.chapter4.RogueApplication" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="KAFKA" />
+    </logger>
+</configuration>

@@ -34,7 +34,7 @@ import java.util.Arrays;
 public class LogAnalysisTopology {
     public static StormTopology buildTopology() {
         TridentTopology topology = new TridentTopology();
-        Broker brokerForPartition0 = new Broker("testserver");
+        Broker brokerForPartition0 = new Broker("localhost");
         GlobalPartitionInformation partitionInfo = new GlobalPartitionInformation();
         partitionInfo.addPartition(0, brokerForPartition0);
         StaticHosts kafkaHosts = new StaticHosts(partitionInfo);
