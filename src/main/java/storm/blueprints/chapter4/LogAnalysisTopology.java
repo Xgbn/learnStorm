@@ -15,6 +15,7 @@ import storm.blueprints.chapter4.message.NotifyMessageMapper;
 import storm.kafka.KafkaConfig;
 import storm.kafka.StaticHosts;
 import storm.kafka.Broker;
+import storm.kafka.BrokerHosts;
 import storm.kafka.StringScheme;
 import storm.kafka.trident.OpaqueTridentKafkaSpout;
 import storm.kafka.trident.TridentKafkaConfig;
@@ -37,7 +38,7 @@ public class LogAnalysisTopology {
         Broker brokerForPartition0 = new Broker("localhost");
         GlobalPartitionInformation partitionInfo = new GlobalPartitionInformation();
         partitionInfo.addPartition(0, brokerForPartition0);
-        StaticHosts kafkaHosts = new StaticHosts(partitionInfo);
+        BrokerHosts kafkaHosts = new StaticHosts(partitionInfo);
 
         TridentKafkaConfig spoutConf = new TridentKafkaConfig(kafkaHosts, "log-analysis");
         //spoutConf.scheme = new StringScheme();
